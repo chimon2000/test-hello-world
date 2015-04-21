@@ -1,0 +1,47 @@
+<!doctype html>
+
+<html>
+<head>
+  <title>HelloWorld</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+
+</head>
+
+<body unresolved>
+  <div>
+    Hello World! My name is Ryan!
+    <div id='changeHere'  style='opacity: 0'></div>
+  </div>
+  <button id="someBtn">Click Me</button>
+  <script>
+
+  (function(){
+    
+      function fadeIn(el) {
+        el.style.opacity = 0;
+      
+        var last = +new Date();
+        var tick = function() {
+          el.style.opacity = +el.style.opacity + (new Date() - last) / 400;
+          last = +new Date();
+      
+          if (+el.style.opacity < 1) {
+            (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 15)
+          }
+        };
+      
+        tick();
+      }
+  
+      fadeIn(document.getElementById('someBtn'));
+      document.getElementById('someBtn').addEventListener('click', function(){
+        this.disabled = true;
+        document.getElementById('changeHere').innerText = 'Button Clicked';
+        fadeIn(document.getElementById('changeHere'));
+      })
+  })();
+  </script>
+</body>
+</html>
